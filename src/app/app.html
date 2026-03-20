@@ -1,0 +1,35 @@
+<div class="min-h-screen bg-stone-50 p-6 font-sans text-stone-900" dir="rtl">
+  <header class="mb-8 text-center">
+    <h1 class="text-3xl font-medium tracking-tight">جدول العبادات اليومي</h1>
+    <p class="text-stone-600">بارك الله في عملك</p>
+  </header>
+
+  <div class="mx-auto max-w-md rounded-2xl bg-white p-6 shadow-sm border border-stone-100">
+    <div class="mb-6">
+      <div class="flex justify-between text-sm mb-2">
+        <span>نسبة الإنجاز</span>
+        <span class="font-medium">{{ progress() }}%</span>
+      </div>
+      <div class="h-2 w-full rounded-full bg-stone-100">
+        <div class="h-2 rounded-full bg-emerald-600 transition-all duration-300" [style.width]="progress() + '%'"></div>
+      </div>
+    </div>
+
+    <ul class="space-y-3">
+      @for (task of tasks(); track task.id) {
+        <li class="flex items-center justify-between rounded-xl border border-stone-100 p-4 transition-colors hover:bg-stone-50"
+            [class.bg-emerald-50]="task.completed"
+            [class.border-emerald-100]="task.completed">
+          <div class="flex items-center gap-3">
+            <input type="checkbox"
+                   [checked]="task.completed"
+                   (change)="toggleTask(task.id)"
+                   class="h-5 w-5 rounded border-stone-300 text-emerald-600 focus:ring-emerald-500">
+            <span [class.line-through]="task.completed" class="font-medium">{{ task.name }}</span>
+          </div>
+          <span class="text-xs text-stone-500">{{ task.category }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
